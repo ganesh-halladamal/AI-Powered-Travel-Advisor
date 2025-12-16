@@ -48,7 +48,7 @@ export default function AIPlannerPage() {
       id: "1",
       content: "Hello! I'm your AI travel advisor. I can help you plan amazing trips, find the best destinations, and create personalized itineraries. What kind of adventure are you planning?",
       role: "assistant",
-      timestamp: new Date()
+      timestamp: new Date('2024-01-01T12:00:00')
     }
   ])
   const [input, setInput] = useState("")
@@ -98,10 +98,14 @@ export default function AIPlannerPage() {
       setMessages(prev => [...prev, aiResponse])
     } catch (error) {
       console.error('Error getting AI response:', error)
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+      
+      // Import and use the fallback response function directly
+      const { getFallbackResponse } = await import('@/lib/fallback-responses')
+      const fallbackContent = getFallbackResponse(content)
+      
       const errorResponse: Message = {
         id: (Date.now() + 1).toString(),
-        content: `Sorry, I encountered an error: ${errorMessage}. Please try again.`,
+        content: fallbackContent + "\n\n*Note: AI service is temporarily busy. Using my knowledge base to help you!*",
         role: "assistant",
         timestamp: new Date()
       }
@@ -117,7 +121,7 @@ export default function AIPlannerPage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <div className="mx-auto max-w-4xl px-4 py-8">
+      <div className="mx-auto max-w-4xl px-4 py-4 sm:py-8">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-slate-900 mb-2">
@@ -157,7 +161,7 @@ export default function AIPlannerPage() {
         )}
 
         {/* Chat Interface */}
-        <Card className="h-[600px] flex flex-col">
+        <Card className="h-[calc(100vh-10rem)] sm:h-[calc(100vh-12rem)] min-h-[350px] max-h-[600px] flex flex-col">
           <CardHeader className="bg-indigo-500 text-white rounded-t-2xl">
             <CardTitle className="flex items-center gap-2">
               <Sparkles className="h-5 w-5" />
@@ -165,9 +169,9 @@ export default function AIPlannerPage() {
             </CardTitle>
           </CardHeader>
 
-          <CardContent className="flex-1 flex flex-col p-0">
+          <CardContent className="flex-1 flex flex-col p-0 min-h-0">
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-6">
+            <div className="flex-1 overflow-y-auto p-6 space-y-6 min-h-0">
               {messages.map((message) => (
                 <ChatMessage key={message.id} message={message} />
               ))}
@@ -196,7 +200,7 @@ export default function AIPlannerPage() {
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && handleSendMessage(input)}
+                  onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSendMessage(input)}
                   placeholder="Ask me anything about travel planning..."
                   className="flex-1"
                 />

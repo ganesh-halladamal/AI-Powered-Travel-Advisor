@@ -9,6 +9,7 @@ import { useState } from "react"
 
 const navigation = [
   { name: "Explore", href: "/explore" },
+  { name: "Best Time", href: "/timing" },
   { name: "Hotels", href: "/hotels" },
   { name: "Restaurants", href: "/restaurants" },
   { name: "Attractions", href: "/attractions" },

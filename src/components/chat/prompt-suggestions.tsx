@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button"
 
 const suggestions = [
-  "Plan my trip",
-  "Best time to visit",
-  "Budget itinerary", 
-  "Honeymoon destinations",
-  "Solo travel tips",
-  "Family-friendly places"
+  "Plan a 5-day Kerala trip",
+  "Best time to visit Manali",
+  "Budget breakdown for Goa", 
+  "Honeymoon destinations in India",
+  "Adventure activities in Rishikesh",
+  "Family-friendly places in Rajasthan"
 ]
 
 interface PromptSuggestionsProps {
@@ -17,14 +17,14 @@ export function PromptSuggestions({ onSuggestionClick }: PromptSuggestionsProps)
   return (
     <div className="space-y-2">
       <p className="text-xs text-slate-500 font-medium">Quick suggestions:</p>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-1 sm:gap-2">
         {suggestions.map((suggestion) => (
           <Button
             key={suggestion}
             variant="outline"
             size="sm"
             onClick={() => onSuggestionClick(suggestion)}
-            className="text-xs h-7 rounded-xl"
+            className="text-xs h-6 sm:h-7 px-2 sm:px-3 rounded-xl flex-shrink-0"
           >
             {suggestion}
           </Button>

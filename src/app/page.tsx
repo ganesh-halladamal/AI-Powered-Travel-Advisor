@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { ArrowRight, MapPin, Sparkles, Users, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -67,6 +68,13 @@ const features = [
 ]
 
 export default function Home() {
+  const router = useRouter()
+
+  const handleSearch = (query: string) => {
+    // Navigate to explore page with search query
+    router.push(`/explore?search=${encodeURIComponent(query)}`)
+  }
+
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -84,10 +92,7 @@ export default function Home() {
           <div className="mb-8 flex justify-center">
             <SearchBar 
               placeholder="Where would you like to go? (e.g., Goa beaches, Manali honeymoon...)"
-              onSearch={(query) => {
-                console.log("Search:", query)
-                alert(`Searching for: ${query}`)
-              }}
+              onSearch={handleSearch}
             />
           </div>
 
@@ -101,6 +106,35 @@ export default function Home() {
             <Link href="/explore">
               <Button variant="outline" size="lg">
                 Explore Destinations
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Destinations */}
+      <section className="py-16 px-4 bg-slate-50">
+        <div className="mx-auto max-w-7xl">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-slate-900 mb-2">
+              Featured Destinations
+            </h2>
+            <p className="text-slate-600">
+              Discover our most popular travel destinations
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {featuredDestinations.map((destination) => (
+              <DestinationCard key={destination.id} {...destination} />
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link href="/explore">
+              <Button variant="outline">
+                View All
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
           </div>
@@ -130,34 +164,6 @@ export default function Home() {
                   <p className="text-sm text-slate-600">{feature.description}</p>
                 </CardContent>
               </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Destinations */}
-      <section className="py-16 px-4 bg-slate-50">
-        <div className="mx-auto max-w-7xl">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-2">
-                Featured Destinations
-              </h2>
-              <p className="text-slate-600">
-                Discover our most popular travel destinations
-              </p>
-            </div>
-            <Link href="/explore">
-              <Button variant="outline">
-                View All
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredDestinations.map((destination) => (
-              <DestinationCard key={destination.id} {...destination} />
             ))}
           </div>
         </div>

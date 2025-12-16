@@ -73,9 +73,16 @@ Focus on destinations in India and popular international destinations for Indian
     const { message: userMessage } = await request.json().catch(() => ({ message: '' }))
     const fallbackResponse = getFallbackResponse(userMessage || '')
 
+    // Check if it's a rate limit error
+    const isRateLimit = error instanceof Error && error.message.includes('429')
+    const noteMessage = isRateLimit 
+      ? "\n\n*Note: AI service is temporarily busy. Using my knowledge base to help you!*"
+      : "\n\n*Note: Using offline knowledge base. Some features may be limited.*"
+
     return NextResponse.json({ 
-      message: fallbackResponse + "\n\n*Note: I'm currently running in offline mode. Some features may be limited.*",
-      fallback: true 
+      message: fallbackResponse + noteMessage,
+      fallback: true,
+      rateLimited: isRateLimit
     })
   }
 }

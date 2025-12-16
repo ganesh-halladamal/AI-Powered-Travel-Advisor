@@ -1,27 +1,42 @@
 "use client"
 
-import { useState } from "react"
-import { Search, MapPin, Clock } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Search, MapPin, Clock, X } from "lucide-react"
 
 const recentSearches = [
   "Goa beaches",
   "Manali honeymoon",
-  "Bengaluru restaurants",
   "Kerala backwaters",
+  "Rajasthan heritage",
+  "Mumbai food",
+  "Ladakh adventure"
 ]
 
 const popularDestinations = [
-  "Goa", "Manali", "Kerala", "Rajasthan", "Himachal Pradesh", "Uttarakhand"
+  "Goa", "Manali", "Kerala", "Rajasthan", "Mumbai", "Agra", "Ladakh", "Shimla"
+]
+
+const searchSuggestions = [
+  "Goa beaches", "Manali honeymoon", "Kerala backwaters", "Rajasthan heritage",
+  "Mumbai food", "Agra monuments", "Ladakh adventure", "Shimla mountains",
+  "Rishikesh spiritual", "Beach destinations", "Mountain destinations", 
+  "Heritage sites", "Adventure sports", "Honeymoon destinations", "Budget travel"
 ]
 
 interface SearchBarProps {
   placeholder?: string
   onSearch?: (query: string) => void
+  initialValue?: string
 }
 
-export function SearchBar({ placeholder = "Search destinations, hotels, restaurants...", onSearch }: SearchBarProps) {
-  const [query, setQuery] = useState("")
+export function SearchBar({ placeholder = "Search destinations, hotels, restaurants...", onSearch, initialValue = "" }: SearchBarProps) {
+  const [query, setQuery] = useState(initialValue)
   const [isOpen, setIsOpen] = useState(false)
+
+  // Update query when initialValue changes
+  useEffect(() => {
+    setQuery(initialValue)
+  }, [initialValue])
 
   const handleSearch = () => {
     if (query.trim()) {
@@ -35,6 +50,12 @@ export function SearchBar({ placeholder = "Search destinations, hotels, restaura
       e.preventDefault()
       handleSearch()
     }
+  }
+
+  const handleClear = () => {
+    setQuery("")
+    onSearch?.("")
+    setIsOpen(false)
   }
 
   return (
@@ -55,10 +76,22 @@ export function SearchBar({ placeholder = "Search destinations, hotels, restaura
           onBlur={() => setTimeout(() => setIsOpen(false), 200)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          className="flex-1 h-14 sm:h-16 pl-12 pr-4 text-base sm:text-lg bg-transparent border-0 outline-none placeholder:text-slate-400 text-slate-900"
+          className="flex-1 h-14 sm:h-16 pl-12 pr-12 text-base sm:text-lg bg-transparent border-0 outline-none placeholder:text-slate-400 text-slate-900"
           aria-label="Search for destinations, hotels, or restaurants"
           role="searchbox"
         />
+
+        {/* Clear Button */}
+        {query && (
+          <button
+            type="button"
+            onClick={handleClear}
+            className="absolute right-20 sm:right-24 top-1/2 -translate-y-1/2 p-2 text-slate-400 hover:text-slate-600 transition-colors"
+            aria-label="Clear search"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        )}
         
         {/* Search Button */}
         <button
@@ -78,7 +111,7 @@ export function SearchBar({ placeholder = "Search destinations, hotels, restaura
       {/* Dropdown */}
       {isOpen && (
         <div className="absolute top-full mt-2 w-full p-4 bg-white border border-slate-200 rounded-2xl shadow-lg z-50">
-          {query.length === 0 && (
+          {query.length === 0 ? (
             <>
               <div className="mb-4">
                 <div className="flex items-center gap-2 mb-2">
@@ -124,6 +157,33 @@ export function SearchBar({ placeholder = "Search destinations, hotels, restaura
                 </div>
               </div>
             </>
+          ) : (
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Search className="h-4 w-4 text-slate-400" />
+                <span className="text-sm font-medium text-slate-700">Suggestions</span>
+              </div>
+              <div className="space-y-1">
+                {searchSuggestions
+                  .filter(suggestion => 
+                    suggestion.toLowerCase().includes(query.toLowerCase())
+                  )
+                  .slice(0, 6)
+                  .map((suggestion) => (
+                    <button
+                      key={suggestion}
+                      onClick={() => {
+                        setQuery(suggestion)
+                        onSearch?.(suggestion)
+                        setIsOpen(false)
+                      }}
+                      className="block w-full text-left px-2 py-1 text-sm text-slate-600 hover:bg-slate-50 rounded"
+                    >
+                      <span className="font-medium">{suggestion}</span>
+                    </button>
+                  ))}
+              </div>
+            </div>
           )}
         </div>
       )}

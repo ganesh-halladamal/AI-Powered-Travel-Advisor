@@ -58,10 +58,8 @@ export function ChatMessage({ message }: ChatMessageProps) {
         </div>
         
         <span className="text-xs text-slate-500 px-1">
-          {message.timestamp.toLocaleTimeString([], { 
-            hour: '2-digit', 
-            minute: '2-digit' 
-          })}
+          {message.timestamp.getHours().toString().padStart(2, '0')}:
+          {message.timestamp.getMinutes().toString().padStart(2, '0')}
         </span>
       </div>
     </div>

@@ -59,10 +59,27 @@ button, input, a, [role="button"] {
 }
 
 /* Fix any potential overlay issues */
-.fixed {
+.fixed:not([data-chat-element]) {
   pointer-events: none;
 }
 
-.fixed > * {
+.fixed:not([data-chat-element]) > * {
   pointer-events: auto;
+}
+
+/* Ensure chat elements are always interactive */
+[data-chat-element] {
+  pointer-events: auto !important;
+}
+
+/* Ensure ai-planner page chat stays within viewport */
+.min-h-screen .max-w-4xl .flex.flex-col {
+  max-height: calc(100vh - 8rem);
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .min-h-screen .max-w-4xl .flex.flex-col {
+    max-height: calc(100vh - 6rem);
+  }
 }
