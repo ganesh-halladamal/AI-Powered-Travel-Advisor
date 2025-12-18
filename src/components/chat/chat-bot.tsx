@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { X, Send, Bot, Sparkles, Plane } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -29,6 +29,34 @@ export function ChatBot() {
   ])
   const [input, setInput] = useState("")
   const [isTyping, setIsTyping] = useState(false)
+  const [showScrollIndicator, setShowScrollIndicator] = useState(false)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesContainerRef = useRef<HTMLDivElement>(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  const handleScroll = () => {
+    if (messagesContainerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current
+      const isScrolledToBottom = scrollHeight - scrollTop <= clientHeight + 10
+      setShowScrollIndicator(!isScrolledToBottom && messages.length > 2)
+    }
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
+
+  useEffect(() => {
+    const container = messagesContainerRef.current
+    if (container) {
+      container.addEventListener('scroll', handleScroll)
+      handleScroll() // Check initial state
+      return () => container.removeEventListener('scroll', handleScroll)
+    }
+  }, [messages.length])
 
   const handleSendMessage = async (content: string) => {
     if (!content.trim()) return
@@ -61,7 +89,9 @@ export function ChatBot() {
       const data = await response.json()
       
       if (data.error) {
-        throw new Error(data.error)
+        const errorMessage = typeof data.error === 'string' ? data.error : 
+                           data.errorDetails || data.message || 'AI service error occurred'
+        throw new Error(errorMessage)
       }
       
       const aiResponse: Message = {
@@ -188,12 +218,12 @@ export function ChatBot() {
               'w-[calc(100vw-2rem)] max-w-sm sm:max-w-md lg:max-w-lg ' +
               (isMinimized 
                 ? 'h-auto' 
-                : 'h-[70vh] max-h-[500px] sm:h-[500px]'
+                : 'h-[calc(100vh-8rem)] max-h-[500px]'
               )
             }`}
             data-chat-element="true"
           >
-            <Card className="h-full flex flex-col shadow-2xl overflow-hidden border border-slate-200">
+            <Card className="h-full flex flex-col shadow-2xl overflow-hidden border border-slate-200 bg-white">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-t-2xl">
                 <div className="flex items-center space-x-2 min-w-0 flex-1">
                   <div className="relative flex-shrink-0">
@@ -203,7 +233,7 @@ export function ChatBot() {
                   <div className="min-w-0 flex-1">
                     <CardTitle className="text-sm sm:text-lg truncate">AI Travel Advisor</CardTitle>
                     <div className="text-xs text-indigo-100 opacity-75 hidden sm:block">
-                      Powered by AI & Travel Knowledge
+                      Powered by Bytez AI & Travel Knowledge
                     </div>
                   </div>
                 </div>
@@ -246,9 +276,12 @@ export function ChatBot() {
                     transition={{ duration: 0.3 }}
                     className="flex-1 flex flex-col overflow-hidden"
                   >
-                    <CardContent className="flex-1 flex flex-col p-0 min-h-0">
+                    <CardContent className="flex-1 flex flex-col p-0 min-h-0 relative">
                       {/* Messages */}
-                      <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 min-h-0">
+                      <div 
+                        ref={messagesContainerRef}
+                        className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 min-h-0 scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-100"
+                      >
                         {messages.map((message) => (
                           <ChatMessage key={message.id} message={message} />
                         ))}
@@ -262,7 +295,28 @@ export function ChatBot() {
                             <span className="text-xs sm:text-sm">AI is typing...</span>
                           </div>
                         )}
+                        <div ref={messagesEndRef} />
                       </div>
+
+                      {/* Gradient overlay to indicate more content */}
+                      {showScrollIndicator && (
+                        <div className="absolute bottom-16 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent pointer-events-none" />
+                      )}
+
+                      {/* Scroll to bottom button */}
+                      {showScrollIndicator && (
+                        <div className="absolute bottom-20 right-4 z-10">
+                          <Button
+                            size="sm"
+                            onClick={scrollToBottom}
+                            className="rounded-full h-8 w-8 p-0 bg-indigo-500 hover:bg-indigo-600 shadow-lg"
+                          >
+                            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                            </svg>
+                          </Button>
+                        </div>
+                      )}
 
                       {/* Suggestions */}
                       {messages.length === 1 && (

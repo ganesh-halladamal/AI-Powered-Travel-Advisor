@@ -85,7 +85,9 @@ export default function AIPlannerPage() {
       const data = await response.json()
       
       if (data.error) {
-        throw new Error(data.error)
+        const errorMessage = typeof data.error === 'string' ? data.error : 
+                           data.errorDetails || data.message || 'AI service error occurred'
+        throw new Error(errorMessage)
       }
       
       const aiResponse: Message = {

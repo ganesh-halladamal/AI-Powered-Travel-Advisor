@@ -1,6 +1,164 @@
 export function getFallbackResponse(userInput: string): string {
   const input = userInput.toLowerCase()
   
+  // Simple greetings and introductions
+  if (input.includes("hi") || input.includes("hello") || input.includes("how are you") || input.includes("good morning") || input.includes("good evening")) {
+    return `Hello! 👋 Nice to meet you! I'm your AI Travel Advisor, and I'm doing great - ready to help you plan amazing trips!
+
+🌟 **I can help you with:**
+• **Trip Planning** - Any destination worldwide
+• **Budget Estimates** - Realistic costs in Indian Rupees
+• **Itineraries** - Day-by-day travel plans
+• **Best Time to Visit** - Weather and seasonal advice
+• **Visa & Documentation** - Requirements and tips
+• **Local Insights** - Culture, food, and hidden gems
+
+**Popular Queries:**
+• "Plan a 7-day Japan trip for ₹2 lakhs"
+• "Best honeymoon destinations in December"
+• "Budget backpacking through Europe"
+• "Family vacation ideas with kids"
+
+**Where would you like to travel?** Just tell me your destination, duration, and budget, and I'll create a perfect plan for you! ✈️🗺️`
+  }
+  
+  // International destinations
+  if (input.includes("europe") || input.includes("european") || input.includes("paris") || input.includes("rome") || input.includes("barcelona") || input.includes("amsterdam")) {
+    return `🇪🇺 **Europe Travel Guide**
+
+**Popular European Destinations:**
+• **Paris, France** - Eiffel Tower, Louvre, romantic atmosphere
+• **Rome, Italy** - Colosseum, Vatican, ancient history
+• **Barcelona, Spain** - Gaudi architecture, beaches, vibrant culture
+• **Amsterdam, Netherlands** - Canals, museums, bike-friendly
+• **Prague, Czech Republic** - Medieval charm, affordable prices
+
+**5-Day Europe Itinerary:**
+• Day 1-2: Paris (Eiffel Tower, Louvre, Seine cruise, Champs-Élysées)
+• Day 3-4: Rome (Colosseum, Vatican, Trevi Fountain, Spanish Steps)
+• Day 5: Barcelona (Sagrada Familia, Gothic Quarter)
+
+**10-Day Europe Itinerary:**
+• Day 1-3: Paris (Eiffel Tower, Louvre, Seine cruise)
+• Day 4-6: Rome (Colosseum, Vatican, Trevi Fountain)
+• Day 7-8: Barcelona (Sagrada Familia, Park Güell, beaches)
+• Day 9-10: Amsterdam (Anne Frank House, canal tours)
+
+**Budget Estimate (5 days for 2 people):**
+• Flights: ₹80,000-₹1,20,000
+• Accommodation: ₹30,000-₹50,000
+• Food: ₹20,000-₹30,000
+• Transport: ₹15,000-₹20,000
+• Activities: ₹15,000-₹25,000
+**Total: ₹1,60,000-₹2,45,000**
+
+**Budget Estimate (10 days for 2 people):**
+• Flights: ₹80,000-₹1,20,000
+• Accommodation: ₹60,000-₹1,00,000
+• Food: ₹40,000-₹60,000
+• Transport: ₹20,000-₹30,000
+• Activities: ₹25,000-₹40,000
+**Total: ₹2,25,000-₹3,50,000**
+
+**Best Time:** April-June, September-October
+**Visa:** Schengen visa required for Indians
+
+Would you like specific city recommendations or help with visa requirements?`
+  }
+
+  // USA and Americas
+  if (input.includes("usa") || input.includes("america") || input.includes("new york") || input.includes("california") || input.includes("canada")) {
+    return `🇺🇸 **USA & Americas Travel Guide**
+
+**Popular USA Destinations:**
+• **New York** - Times Square, Statue of Liberty, Central Park
+• **California** - Los Angeles, San Francisco, Hollywood
+• **Las Vegas** - Entertainment, shows, casinos
+• **Florida** - Miami beaches, Disney World, Key West
+• **Canada** - Toronto, Vancouver, Niagara Falls
+
+**7-Day USA Itinerary:**
+• Day 1-3: New York (Manhattan, Brooklyn Bridge, 9/11 Memorial)
+• Day 4-5: Washington DC (White House, Smithsonian)
+• Day 6-7: Las Vegas (Shows, Grand Canyon day trip)
+
+**Budget Estimate (7 days for 2 people):**
+• Flights: ₹1,20,000-₹2,00,000
+• Accommodation: ₹70,000-₹1,20,000
+• Food: ₹50,000-₹80,000
+• Transport: ₹30,000-₹50,000
+• Activities: ₹40,000-₹70,000
+**Total: ₹3,10,000-₹5,20,000**
+
+**Visa:** B1/B2 tourist visa required (interview needed)
+**Best Time:** April-June, September-November
+
+Need help with visa process or specific city planning?`
+  }
+
+  // Southeast Asia
+  if (input.includes("thailand") || input.includes("singapore") || input.includes("malaysia") || input.includes("bali") || input.includes("vietnam")) {
+    return `🌴 **Southeast Asia Travel Guide**
+
+**Popular Destinations:**
+• **Thailand** - Bangkok, Phuket, Chiang Mai, Pattaya
+• **Singapore** - Marina Bay, Gardens by the Bay, Sentosa
+• **Malaysia** - Kuala Lumpur, Penang, Langkawi
+• **Bali, Indonesia** - Ubud, Seminyak, Kuta beaches
+• **Vietnam** - Ho Chi Minh City, Hanoi, Ha Long Bay
+
+**10-Day Southeast Asia Circuit:**
+• Day 1-3: Bangkok (Grand Palace, floating markets, street food)
+• Day 4-6: Singapore (Marina Bay, Universal Studios)
+• Day 7-8: Kuala Lumpur (Petronas Towers, Batu Caves)
+• Day 9-10: Bali (Ubud rice terraces, beach relaxation)
+
+**Budget Estimate (10 days for 2 people):**
+• Flights: ₹60,000-₹1,00,000
+• Accommodation: ₹40,000-₹80,000
+• Food: ₹25,000-₹45,000
+• Transport: ₹20,000-₹35,000
+• Activities: ₹30,000-₹50,000
+**Total: ₹1,75,000-₹3,10,000**
+
+**Visa:** Most countries offer visa on arrival or e-visa
+**Best Time:** November-March (cool and dry season)
+
+Which country interests you most?`
+  }
+
+  if (input.includes("international") || input.includes("abroad") || input.includes("foreign")) {
+    return `✈️ **International Travel Guide**
+
+**Popular International Destinations for Indians:**
+• **Dubai, UAE** - Shopping, luxury, no visa required
+• **Singapore** - Clean city, great food, easy visa
+• **Thailand** - Beaches, culture, budget-friendly
+• **Maldives** - Luxury resorts, pristine beaches
+• **Nepal** - Mountains, culture, no visa required
+• **Sri Lanka** - Beaches, heritage, close to India
+
+**Budget Estimates (7 days for 2 people):**
+• **Southeast Asia:** ₹80,000-₹1,50,000
+• **Middle East:** ₹1,00,000-₹2,00,000
+• **Europe:** ₹1,50,000-₹3,00,000
+• **USA/Canada:** ₹2,00,000-₹4,00,000
+
+**Visa Requirements:**
+• Visa-free: Nepal, Bhutan, Mauritius
+• Visa on arrival: Maldives, Thailand, Sri Lanka
+• E-visa: Dubai, Singapore, Turkey
+• Regular visa: Europe, USA, UK, Australia
+
+**Travel Tips:**
+• Book flights 2-3 months in advance
+• Check visa processing times
+• Get travel insurance
+• Inform bank about international travel
+
+Which destination interests you most?`
+  }
+  
   if (input.includes("goa") || input.includes("beach")) {
     return `🏖️ **Goa Travel Guide**
 
@@ -199,6 +357,41 @@ Ready for the ultimate mountain adventure?`
   }
 
   // Check for specific travel-related keywords
+  if (input.includes("10 day") || input.includes("10-day") || input.includes("10days")) {
+    return `📅 **10-Day Trip Planning**
+
+**Popular 10-Day Itineraries:**
+
+**🇪🇺 Europe (Multi-city):**
+• Days 1-3: Paris, France
+• Days 4-6: Rome, Italy  
+• Days 7-8: Barcelona, Spain
+• Days 9-10: Amsterdam, Netherlands
+• Budget: ₹2,25,000-₹3,50,000 for 2 people
+
+**🇮🇳 India Golden Triangle + Extensions:**
+• Days 1-3: Delhi (Red Fort, India Gate, markets)
+• Days 4-6: Agra (Taj Mahal, Agra Fort)
+• Days 7-8: Jaipur (Amber Fort, City Palace)
+• Days 9-10: Rishikesh or Goa extension
+• Budget: ₹60,000-₹1,20,000 for 2 people
+
+**🌴 Southeast Asia:**
+• Days 1-4: Thailand (Bangkok + Phuket)
+• Days 5-7: Singapore
+• Days 8-10: Malaysia (Kuala Lumpur)
+• Budget: ₹1,20,000-₹2,00,000 for 2 people
+
+**Planning Tips for 10-Day Trips:**
+• Book flights 2-3 months ahead
+• Pack light for multiple destinations
+• Keep 1-2 buffer days for rest
+• Get comprehensive travel insurance
+• Research visa requirements early
+
+Which region interests you most for your 10-day adventure?`
+  }
+
   if (input.includes("plan") || input.includes("itinerary") || input.includes("trip")) {
     return `📋 **Travel Planning Made Easy**
 
@@ -407,33 +600,38 @@ Planning something special? Tell me your preferences!`
 What ages are the kids? I can suggest age-appropriate activities!`
   }
 
-  return `I'm your AI travel advisor! I can help you with:
+  // General travel planning response for any query
+  return `🌟 **AI Travel Advisor - I'm here to help!**
 
-🌍 **Travel Planning:**
-• Destination recommendations
-• Detailed itineraries  
-• Budget breakdowns
-• Best time to visit advice
+I can assist you with travel planning for **any destination worldwide**. Here's what I can do:
 
-💡 **Popular Destinations:**
-• Goa - Beach paradise
-• Manali - Mountain retreat
-• Kerala - Backwater bliss
-• Rajasthan - Royal heritage
-• Ladakh - High altitude adventure
-• Mumbai - Bollywood & business
+🌍 **Travel Planning Services:**
+• **Destination Research** - Find the perfect place for your trip
+• **Custom Itineraries** - Day-by-day planning for any duration
+• **Budget Planning** - Realistic cost estimates in Indian Rupees
+• **Best Time Advice** - Optimal travel seasons and weather info
+• **Visa & Documentation** - Requirements and application guidance
+• **Local Insights** - Culture, food, activities, and hidden gems
 
-**Quick Examples:**
-• "Plan a 5-day Kerala trip for ₹50,000"
-• "Best time to visit Manali for honeymoon?"
-• "Budget breakdown for Goa family vacation"
-• "Adventure activities in Rishikesh"
+🗺️ **I Cover All Destinations:**
+• **Domestic:** Goa, Kerala, Rajasthan, Himachal, Kashmir, Northeast
+• **Asia:** Thailand, Singapore, Japan, South Korea, Maldives
+• **Europe:** France, Italy, Spain, UK, Germany, Switzerland
+• **Americas:** USA, Canada, Mexico, Brazil, Argentina
+• **Others:** Australia, New Zealand, Dubai, Egypt, South Africa
 
-**How to get started:**
-• Tell me where you want to go
-• Share your budget range
-• Mention trip duration  
-• Let me know your interests
+💡 **How to Get Started:**
+Just tell me:
+• **Where** do you want to go? (or say "suggest destinations")
+• **How many days** do you have?
+• **What's your budget** range?
+• **What interests you?** (beaches, mountains, culture, adventure, food)
 
-What destination are you curious about? I'd love to help plan your next adventure! 🌟`
+**Example Queries:**
+• "Plan a 7-day Japan trip for ₹2 lakhs"
+• "Best honeymoon destinations in December"
+• "Budget backpacking through Europe"
+• "Family trip to Australia with kids"
+
+**Ready to plan your dream trip?** Just ask me anything about travel! ✈️🌟`
 }

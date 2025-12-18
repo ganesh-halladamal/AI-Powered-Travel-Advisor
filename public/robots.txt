@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Allow all pages
+Allow: /explore
+Allow: /timing
+Allow: /ai-planner
+Allow: /hotels
+Allow: /restaurants
+Allow: /attractions
+
+# Disallow API routes from indexing
+Disallow: /api/
+
+# Disallow private pages
+Disallow: /profile
+
+# Sitemap location
+Sitemap: https://your-domain.vercel.app/sitemap.xml

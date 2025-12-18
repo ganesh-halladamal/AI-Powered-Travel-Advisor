@@ -15,9 +15,29 @@ interface ChatMessageProps {
 export function ChatMessage({ message }: ChatMessageProps) {
   const isUser = message.role === "user"
 
-  const formatContent = (content: string) => {
+  const formatContent = (content: string | any) => {
+    // Ensure content is a string
+    let textContent = ''
+    
+    if (typeof content === 'string') {
+      textContent = content
+    } else if (content && typeof content === 'object') {
+      // Handle object responses
+      if (content.content) {
+        textContent = content.content
+      } else if (content.text) {
+        textContent = content.text
+      } else if (content.message) {
+        textContent = content.message
+      } else {
+        textContent = 'Sorry, I received an invalid response format.'
+      }
+    } else {
+      textContent = String(content || 'No content available')
+    }
+    
     // Simple markdown-like formatting
-    return content
+    return textContent
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
       .replace(/•/g, '•')

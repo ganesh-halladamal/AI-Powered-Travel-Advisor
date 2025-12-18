@@ -1,0 +1,15 @@
+# Redirect old URLs to new ones
+/home /
+/planner /ai-planner
+/best-time /timing
+/travel-planner /ai-planner
+
+# Handle SPA routing - fallback to index for client-side routing
+/* /index.html 200
+
+# API redirects
+/api/v1/* /api/:splat 301
+
+# SEO redirects
+/travel-advisor /
+/ai-travel-planner /ai-planner
