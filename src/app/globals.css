@@ -110,4 +110,35 @@ button, input, a, [role="button"] {
 /* Smooth scrolling for chat messages */
 .chat-messages {
   scroll-behavior: smooth;
+}/* Mo
+bile responsiveness fixes */
+@media (max-width: 768px) {
+  /* Ensure chat button doesn't overlap with bottom navbar */
+  [data-chat-element="true"] {
+    bottom: 5rem !important; /* 80px - above the navbar */
+  }
+  
+  /* Add padding to main content to avoid navbar overlap */
+  main {
+    padding-bottom: 6rem; /* Space for bottom navbar */
+  }
+  
+  /* Search bar mobile improvements */
+  .search-container {
+    padding: 0 1rem;
+  }
+}
+
+/* Ensure proper z-index stacking */
+.fixed[data-chat-element="true"] {
+  z-index: 45; /* Below navbar (z-40) but above content */
+}
+
+/* Mobile navbar improvements */
+@media (max-width: 640px) {
+  /* Reduce navbar size on very small screens */
+  .navbar-mobile {
+    bottom: 1rem;
+    padding: 0.5rem;
+  }
 }

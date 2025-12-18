@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en" className="bg-white">
       <body className={`${inter.className} antialiased bg-white`}>
         <TubelightTravelNavbar />
-        <main className="min-h-screen pt-4 sm:pt-20 pb-4">
+        <main className="min-h-screen pt-4 sm:pt-20 pb-20 sm:pb-4">
           {children}
         </main>
         <Footer />

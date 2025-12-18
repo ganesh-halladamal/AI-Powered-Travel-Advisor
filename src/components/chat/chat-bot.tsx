@@ -143,7 +143,7 @@ export function ChatBot() {
               scale: { duration: 0.3 },
               y: { duration: 2, repeat: Infinity, ease: "easeInOut" }
             }}
-            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50"
+            className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-30"
             data-chat-element="true"
           >
             <div className="relative group">
@@ -212,9 +212,9 @@ export function ChatBot() {
               height: isMinimized ? "auto" : "auto"
             }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className={`fixed z-50 ${
+            className={`fixed z-30 ${
               // Responsive positioning and sizing
-              'bottom-4 right-4 sm:bottom-6 sm:right-6 ' +
+              'bottom-20 right-4 sm:bottom-6 sm:right-6 ' +
               'w-[calc(100vw-2rem)] max-w-sm sm:max-w-md lg:max-w-lg ' +
               (isMinimized 
                 ? 'h-auto' 

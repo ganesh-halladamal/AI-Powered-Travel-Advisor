@@ -89,7 +89,7 @@ export default function Home() {
             with our intelligent travel advisor.
           </p>
           
-          <div className="mb-8 flex justify-center">
+          <div className="mb-8 flex justify-center px-4 sm:px-0">
             <SearchBar 
               placeholder="Where would you like to go? (e.g., Goa beaches, Manali honeymoon...)"
               onSearch={handleSearch}

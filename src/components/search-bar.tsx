@@ -61,7 +61,7 @@ export function SearchBar({ placeholder = "Search destinations, hotels, restaura
   return (
     <div className="relative w-full max-w-3xl mx-auto">
       {/* Search Input Container */}
-      <div className="relative flex items-center bg-white border-2 border-slate-200 rounded-2xl shadow-xl hover:border-slate-300 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-200 transition-all duration-200 overflow-hidden">
+      <div className="relative flex items-center bg-white border-2 border-slate-200 rounded-2xl shadow-xl hover:border-slate-300 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-200 transition-all duration-200">
         {/* Search Icon */}
         <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
           <Search className="h-5 w-5 sm:h-6 sm:w-6 text-slate-400" />
@@ -76,7 +76,7 @@ export function SearchBar({ placeholder = "Search destinations, hotels, restaura
           onBlur={() => setTimeout(() => setIsOpen(false), 200)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          className="flex-1 h-14 sm:h-16 pl-12 pr-12 text-base sm:text-lg bg-transparent border-0 outline-none placeholder:text-slate-400 text-slate-900"
+          className="flex-1 h-14 sm:h-16 pl-12 pr-16 sm:pr-28 text-base sm:text-lg bg-transparent border-0 outline-none placeholder:text-slate-400 text-slate-900"
           aria-label="Search for destinations, hotels, or restaurants"
           role="searchbox"
         />
@@ -86,10 +86,10 @@ export function SearchBar({ placeholder = "Search destinations, hotels, restaura
           <button
             type="button"
             onClick={handleClear}
-            className="absolute right-20 sm:right-24 top-1/2 -translate-y-1/2 p-2 text-slate-400 hover:text-slate-600 transition-colors"
+            className="absolute right-12 sm:right-24 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-600 transition-colors"
             aria-label="Clear search"
           >
-            <X className="h-4 w-4" />
+            <X className="h-3 w-3 sm:h-4 sm:w-4" />
           </button>
         )}
         
@@ -101,10 +101,11 @@ export function SearchBar({ placeholder = "Search destinations, hotels, restaura
             handleSearch()
           }}
           disabled={!query.trim()}
-          className="m-2 h-10 sm:h-12 px-4 sm:px-6 bg-indigo-600 hover:bg-indigo-700 focus:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-semibold rounded-xl shadow-md transition-all duration-200 hover:shadow-lg active:scale-95 text-sm sm:text-base flex-shrink-0"
+          className="m-1 sm:m-2 h-10 sm:h-12 min-w-[2.5rem] sm:min-w-[5rem] px-2 sm:px-6 bg-indigo-600 hover:bg-indigo-700 focus:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-semibold rounded-xl shadow-md transition-all duration-200 hover:shadow-lg active:scale-95 text-xs sm:text-base flex-shrink-0 flex items-center justify-center"
           aria-label="Search destinations"
         >
-          Search
+          <span className="hidden sm:inline">Search</span>
+          <Search className="h-4 w-4 sm:hidden" />
         </button>
       </div>
 
